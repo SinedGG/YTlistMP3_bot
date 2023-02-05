@@ -19,16 +19,18 @@ bot.start((ctx) => {
 
 const getSong = require("./module/getSong.js");
 const loadList = require("./module/loadList.js");
+const getLinkFromOther = require("./module/getLinkFromOther.js");
 
 bot.on("text", (ctx) => {
   const content = ctx.message.text;
-  if (!(content.includes("youtube.com") || content.includes("youtu.be")))
-    return ctx.reply("Not supported.");
-
-  if (content.includes("playlist?")) {
-    const list_id = new URL(content).searchParams.get("list");
-    loadList(bot, db, ctx, list_id);
-  } else getSong(bot, db, ctx, content);
+  if (content.includes("youtube.com") || content.includes("youtu.be")) {
+    if (content.includes("playlist?")) {
+      const list_id = new URL(content).searchParams.get("list");
+      loadList(bot, db, ctx, list_id);
+    } else getSong(bot, db, ctx, content);
+  } else {
+    getLinkFromOther(bot, db, ctx, content);
+  }
 
   bot.telegram.deleteMessage(ctx.chat.id, ctx.message.message_id);
 });
