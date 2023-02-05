@@ -2,13 +2,10 @@ const axios = require("axios");
 const fs = require("fs");
 const sharp = require("sharp");
 
-module.exports = (song_id) => {
+module.exports = (url, song_id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axios.get(
-        `https://i.ytimg.com/vi_webp/${song_id}/maxresdefault.webp`,
-        { responseType: "stream" }
-      );
+      const res = await axios.get(url, { responseType: "stream" });
       const writer = fs.createWriteStream(`${__basedir}/temp/${song_id}.webp`);
       res.data.pipe(writer);
       writer.on("finish", () => {

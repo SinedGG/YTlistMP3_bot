@@ -8,6 +8,8 @@ module.exports = (url) => {
         title: res.videoDetails.title,
         author: res.videoDetails.author.name.replace(" - Topic", ""),
         id: res.videoDetails.videoId,
+        art: res.videoDetails.thumbnails[res.videoDetails.thumbnails.length - 1]
+          .url,
       });
       resolve;
     } catch (error) {

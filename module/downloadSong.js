@@ -16,7 +16,7 @@ module.exports = (s) => {
         s.title
       )}.mp3`;
 
-      await Promise.all([convert(s.id, path), art(s.id)]);
+      await Promise.all([convert(s.id, path), art(s.art, s.id)]);
       const tags = {
         title: s.title,
         artist: s.author,
