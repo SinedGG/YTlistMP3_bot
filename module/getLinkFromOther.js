@@ -1,8 +1,9 @@
 const axios = require("axios");
 const getSong = require("./getSong.js");
+const sendMessage = require("./sendMessage.js");
 
 
-module.exports = (bot, ctx, url) => {
+module.exports = (ctx, url) => {
   axios
     .get(`https://api.song.link/v1-alpha.1/links?url=${url}`)
     .then(({ data }) => {
@@ -14,13 +15,7 @@ module.exports = (bot, ctx, url) => {
       }
     })
     .catch(async (err) => {
-      console.log(err);
-      const err_msg = await bot.telegram.sendMessage(
-        ctx.chat.id,
-        `Unable to find song. Use Youtube song for better results`
-      );
-      setTimeout(() => {
-        bot.telegram.deleteMessage(ctx.chat.id, err_msg.message_id);
-      }, 15 * 1000);
+      console.log(err.message);
+      sendMessage(ctx, "notFoundOther")
     });
 };

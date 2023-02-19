@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const getSong = require("./getSong");
 
-module.exports = async (bot, ctx, list_id) => {
+module.exports = async (ctx, list_id) => {
   try {
     const api_key = process.env.YT_TOKEN;
     var out = [];
@@ -19,9 +19,9 @@ module.exports = async (bot, ctx, list_id) => {
     } while (page_token);
 
     for (let i = 0; i < out.length; i++) {
-      await getSong(bot, ctx, out[i]);
+      await getSong(ctx, out[i]);
     }
   } catch (err) {
-    reject("[list] " + err.response.data.error.message);
+    console.log("[list] " + err.response.data.error.message);
   }
 };
