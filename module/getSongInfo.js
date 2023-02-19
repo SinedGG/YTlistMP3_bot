@@ -11,9 +11,8 @@ module.exports = (url) => {
         art: res.videoDetails.thumbnails[res.videoDetails.thumbnails.length - 1]
           .url,
       });
-      resolve;
     } catch (error) {
-      reject(error);
+      reject(error.message);
     }
   });
 };
