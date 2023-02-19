@@ -1,6 +1,8 @@
 const axios = require("axios");
 const getSong = require("./getSong.js");
-module.exports = (bot, db, ctx, url) => {
+
+
+module.exports = (bot, ctx, url) => {
   axios
     .get(`https://api.song.link/v1-alpha.1/links?url=${url}`)
     .then(({ data }) => {
@@ -8,7 +10,7 @@ module.exports = (bot, db, ctx, url) => {
         const uniqueId = data.linksByPlatform.youtubeMusic.entityUniqueId;
         const song_id = data.entitiesByUniqueId[uniqueId].id;
         console.log(`[${song_id}] YT id found for url - ${url}`);
-        getSong(bot, db, ctx, song_id);
+        getSong(bot, ctx, song_id);
       }
     })
     .catch(async (err) => {

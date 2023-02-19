@@ -1,9 +1,9 @@
 const fs = require("fs");
 require("dotenv").config();
-
 const downloadSong = require("./downloadSong");
+const db = require("../db");
 
-module.exports = (bot, db, song) => {
+module.exports = (bot,  song) => {
   return new Promise(async (resolve, reject) => {
     try {
       const patch = await downloadSong(song);
@@ -16,7 +16,7 @@ module.exports = (bot, db, song) => {
           thumb: { source: `${__basedir}/temp/${song.id}.jpg` },
         }
       );
-      db.query(`insert into link (message_id, yt_id) values (?,?)`, [
+      db(`insert into link (message_id, yt_id) values (?,?)`, [
         msg.message_id,
         song.id,
       ]);
