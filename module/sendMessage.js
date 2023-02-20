@@ -8,9 +8,9 @@ module.exports = async (ctx, arg, dell) => {
   const lan = require(`../languages/${lang}.js`);
 
   const message = await bot.telegram.sendMessage(chatId, lan[arg]);
-  
+
   if (dell)
     setTimeout(() => {
       bot.telegram.deleteMessage(chatId, message.message_id);
-    }, 15 * 1000);
+    }, 60 * 1000);
 };
