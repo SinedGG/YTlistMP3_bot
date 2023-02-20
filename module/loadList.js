@@ -1,27 +1,21 @@
-require("dotenv").config();
-const axios = require("axios");
+var tasks = {};
+const getListLink = require("./getListLink");
 const getSong = require("./getSong");
+const sendMessage = require("./sendMessage");
 
-module.exports = async (ctx, list_id) => {
-  try {
-    const api_key = process.env.YT_TOKEN;
-    var out = [];
-    var page_token = "";
-
-    do {
-      const request = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list_id}&pageToken=${page_token}&key=${api_key}&maxResults=1000`;
-      const res = await axios.get(request);
-      for (let j = 0; j < res.data.items.length; j++) {
-        var id = res.data.items[j].snippet.resourceId.videoId;
-        out.push(id);
+module.exports = {
+  tasks,
+  load: async (ctx, list_id, oneTime) => {
+    try {
+      sendMessage(ctx, "playlistStart", true);
+      tasks[toString(ctx.chat.id)] = true;
+      const links = await getListLink(list_id, oneTime);
+      for (let i = 0; i < links.length; i++) {
+        if (tasks[toString(ctx.chat.id)]) await getSong(ctx, links[i]);
       }
-      page_token = res.data.nextPageToken;
-    } while (page_token);
-
-    for (let i = 0; i < out.length; i++) {
-      await getSong(ctx, out[i]);
+    } catch (err) {
+      sendMessage(ctx, "playlistError", true);
+      console.log(err);
     }
-  } catch (err) {
-    console.log("[list] " + err.response.data.error.message);
-  }
+  },
 };

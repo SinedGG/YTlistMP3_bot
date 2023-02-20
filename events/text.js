@@ -1,6 +1,7 @@
 const getSong = require("../module/getSong.js");
-const loadList = require("../module/loadList.js");
+
 const getLinkFromOther = require("../module/getLinkFromOther.js");
+const list = require("../module/loadList.js");
 
 module.exports = {
   name: "text",
@@ -9,14 +10,14 @@ module.exports = {
     if (content.includes("youtube.com") || content.includes("youtu.be")) {
       if (content.includes("playlist?")) {
         const list_id = new URL(content).searchParams.get("list");
-        loadList(ctx, list_id);
+        list.load(ctx, list_id);
       } else getSong(ctx, content);
     } else {
-      getLinkFromOther( ctx, content);
+      getLinkFromOther(ctx, content);
     }
 
     setTimeout(() => {
       bot.telegram.deleteMessage(ctx.chat.id, ctx.message.message_id);
-    }, 15 * 1000);
+    }, 60 * 1000);
   },
 };

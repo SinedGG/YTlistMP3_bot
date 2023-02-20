@@ -7,6 +7,7 @@ module.exports = (ctx, url) => {
   return new Promise(async (resolve, reject) => {
     try {
       const song = await getSongInfo(url);
+      sendMessage(ctx, "oneLoadding", true);
       console.log(`[${song.id}] Startign task from ${ctx.chat.username} user`);
       const rows = await db(`select message_id from link where yt_id = ?`, [
         song.id,
