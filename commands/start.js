@@ -11,8 +11,8 @@ module.exports = {
       ctx.reply(
         "Hi! Select a language to start:",
         Markup.inlineKeyboard([
-          Markup.button.callback("🇺🇦", `ukr`),
-          Markup.button.callback("🇺🇸/🇬🇧", `eng`),
+          Markup.button.callback("🇺🇦", `ukr dell`),
+          Markup.button.callback("🇺🇸/🇬🇧", `eng dell`),
         ])
       );
   },
