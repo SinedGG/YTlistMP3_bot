@@ -7,3 +7,5 @@ DB_PASSWORD=
 DB_NAME=
 
 DATA_CHAT_ID=
+
+ADMIN_CHAT_ID="id, id, id"
