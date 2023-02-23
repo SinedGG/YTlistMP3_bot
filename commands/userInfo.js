@@ -1,4 +1,4 @@
-const ifAdmin = require("../module/ifAdmin");
+const admin = require("../module/ifAdmin");
 
 module.exports = {
   name: "userinfo",
