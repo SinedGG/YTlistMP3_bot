@@ -12,11 +12,11 @@ module.exports = (ctx, url) => {
       ]);
       var message_id;
       if (rows.length === 0) {
-        message_id = await loadSong(bot, song);
         console.log(
           `Downloading started for ${song.id} by ${ctx.chat.username} (${ctx.chat.id})`
         );
         sendMessage(ctx, "oneLoadding", true);
+        message_id = await loadSong(bot, song);
       } else {
         message_id = rows[0].message_id;
         console.log(
