@@ -19,7 +19,6 @@ module.exports = (song_id, path) => {
         console.log(err);
       })
       .on("end", () => {
-        console.log(`[${song_id}] Audio download complete`);
         resolve();
       });
   });
