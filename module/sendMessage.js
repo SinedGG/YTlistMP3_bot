@@ -2,12 +2,12 @@ const db = require("../db.js");
 
 module.exports = async (ctx, arg, dell) => {
   const chatId = ctx.chat.id;
-  const [{ lang }] = await db(`SELECT lang FROM users WHERE tg_id = ?`, [
-    chatId,
-  ]);
-  const lan = require(`../languages/${lang}.js`);
+  var [code] = await db(`SELECT lang FROM users WHERE tg_id = ?`, [chatId]);
+  if (code) code = code.lang;
+  else code = "eng";
+  const lang = require(`../languages/${code}.js`);
 
-  const message = await bot.telegram.sendMessage(chatId, lan[arg]);
+  const message = await bot.telegram.sendMessage(chatId, lang[arg]);
 
   if (dell)
     setTimeout(() => {
