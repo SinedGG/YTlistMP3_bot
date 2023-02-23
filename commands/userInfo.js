@@ -4,7 +4,7 @@ module.exports = {
   name: "userinfo",
   async execute(ctx) {
     try {
-      if (admin(ctx.chat.id)) return;
+      if (!admin(ctx.chat.id)) return;
 
       const id = ctx.message.text.split(" ")[1];
       const info = await bot.telegram.getChat(id);
