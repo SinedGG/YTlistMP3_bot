@@ -5,6 +5,11 @@ module.exports = (song_id, path) => {
   return new Promise((resolve, reject) => {
     const stream = ytdl(song_id, {
       filter: "audioonly",
+      requestOptions: {
+        headers: {
+          cookie: process.env.COOKIE,
+        },
+      },
     }).on("error", (err) => {
       console.log(err);
       reject(err);

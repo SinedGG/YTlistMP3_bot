@@ -9,3 +9,5 @@ DB_NAME=
 DATA_CHAT_ID=
 
 ADMIN_CHAT_ID="id, id, id"
+
+COOKIE='VISITOR_INFO1_LIVE=some; __Secure-3PSID=some.; __Secure-3PAPISID=some; LOGIN_INFO=some
