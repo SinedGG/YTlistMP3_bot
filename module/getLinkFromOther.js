@@ -10,7 +10,7 @@ module.exports = (ctx, url) => {
         const uniqueId = data.linksByPlatform.youtubeMusic.entityUniqueId;
         const song_id = data.entitiesByUniqueId[uniqueId].id;
         console.log(`[${song_id}] YT id found for url - ${url}`);
-        getSong(bot, ctx, song_id);
+        getSong(ctx, song_id);
       }
     })
     .catch(async (err) => {
